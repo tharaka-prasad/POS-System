@@ -1,11 +1,11 @@
-import Checkbox from '@/Components/Checkbox';
-import InputError from '@/Components/InputError';
-import InputLabel from '@/Components/InputLabel';
-import PrimaryButton from '@/Components/PrimaryButton';
-import TextInput from '@/Components/TextInput';
-import GuestLayout from '@/Layouts/GuestLayout';
+import { useEffect, FormEventHandler } from 'react';
 import { Head, Link, useForm } from '@inertiajs/react';
-import { FormEventHandler } from 'react';
+import Checkbox from '@/Components/elements/inputs/Checkbox';
+import InputError from '@/Components/elements/inputs/InputError';
+import InputLabel from '@/Components/elements/inputs/InputLabel';
+import TextInput from '@/Components/elements/inputs/TextInput';
+import AppLayout from '@/Layouts/AppLayout';
+
 
 export default function Login({
     status,
@@ -29,14 +29,16 @@ export default function Login({
     };
 
     return (
-        <GuestLayout>
-            <Head title="Log in" />
+        <AppLayout isFooter={false}
+            isHeader={false}
 
-            {status && (
-                <div className="mb-4 text-sm font-medium text-green-600">
-                    {status}
-                </div>
-            )}
+        >
+            <Head title="Log in" />
+             <div className="flex flex-col items-center justify-center h-full min-h-screen pt-6 mt-20 bg-white sm:pt-0">
+                <div className="w-full px-6 py-10 space-y-6 overflow-hidden bg-white sm:border sm:shadow-md sm:px-14 sm:max-w-md sm:rounded-lg">
+                    {status && <div className="mb-4 text-sm font-medium text-green-600">{status}</div>}
+                    <h1 className="text-3xl font-medium text-center font-Inter ">Log in to Ekrain POS System</h1>
+
 
             <form onSubmit={submit}>
                 <div>
@@ -77,7 +79,7 @@ export default function Login({
                         <Checkbox
                             name="remember"
                             checked={data.remember}
-                            onChange={(e) =>
+                            onChange={(e: { target: { checked: any; }; }) =>
                                 setData(
                                     'remember',
                                     (e.target.checked || false) as false,
@@ -100,11 +102,19 @@ export default function Login({
                         </Link>
                     )}
 
-                    <PrimaryButton className="ms-4" disabled={processing}>
+                    <button className="ms-4" disabled={processing}>
                         Log in
-                    </PrimaryButton>
+                    </button>
                 </div>
             </form>
-        </GuestLayout>
+             <div className="flex items-center justify-center mt-4">
+                        <span className="mr-2 text-md text-textSecondary">Don’t have an Crown-CRM account?</span>
+                        <Link href={route('register')} className="font-medium text-md font-Inter text-nowrap text-primary hover:text-primary-500">
+                            Sign Up
+                        </Link>
+                    </div>
+                </div>
+            </div>
+        </AppLayout>
     );
 }
