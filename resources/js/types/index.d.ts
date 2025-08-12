@@ -1,5 +1,10 @@
 import { Config } from 'ziggy-js';
 
+export interface Flash {
+    success?: string | [string, string];
+    error?: string | [string, string];
+}
+
 export interface User {
     id: number;
     name: string;
